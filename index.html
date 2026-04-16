@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZestyZen — Eat Clean, Live Healthy</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Zesty<span>Zen</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="recipes.html">Recipes</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Eat Clean, Live <span>Healthy</span></h1>
+            <p>Discover delicious and nutritious recipes for every meal of the day. Your journey to a healthier
+                lifestyle starts here.</p>
+            <form class="hero-search" onsubmit="searchRecipes(event)">
+                <input type="text" id="heroSearch" placeholder="Search for a recipe...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Explore <span>Categories</span></h2>
+            <p class="section-subtitle">Browse recipes by your favorite meal type</p>
+            <div class="categories-grid">
+                <a href="recipes.html?category=breakfast" class="category-card">
+                    <div class="category-icon"><span>🥞</span></div>
+                    <h3>Breakfast</h3>
+                </a>
+                <a href="recipes.html?category=lunch" class="category-card">
+                    <div class="category-icon"><span>🥗</span></div>
+                    <h3>Lunch</h3>
+                </a>
+                <a href="recipes.html?category=dinner" class="category-card">
+                    <div class="category-icon"><span>🍽️</span></div>
+                    <h3>Dinner</h3>
+                </a>
+                <a href="recipes.html?category=snacks" class="category-card">
+                    <div class="category-icon"><span>🥜</span></div>
+                    <h3>Snacks</h3>
+                </a>
+                <a href="recipes.html?category=smoothies" class="category-card">
+                    <div class="category-icon"><span>🥤</span></div>
+                    <h3>Smoothies</h3>
+                </a>
+                <a href="recipes.html?category=desserts" class="category-card">
+                    <div class="category-icon"><span>🍓</span></div>
+                    <h3>Desserts</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Recipes Section -->
+    <section class="section" style="background: var(--white);">
+        <div class="container">
+            <h2 class="section-title">Popular <span>Recipes</span></h2>
+            <p class="section-subtitle">Our most loved healthy recipes to get you started</p>
+            <div class="recipes-grid" id="featuredRecipes"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo">Zesty<span>Zen</span></div>
+                    <p class="footer-desc">Your go-to destination for healthy, delicious recipes. We believe that eating
+                        well should be simple, enjoyable, and accessible to everyone.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="recipes.html">Recipes</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="recipes.html?category=breakfast">Breakfast</a></li>
+                        <li><a href="recipes.html?category=lunch">Lunch</a></li>
+                        <li><a href="recipes.html?category=dinner">Dinner</a></li>
+                        <li><a href="recipes.html?category=smoothies">Smoothies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ZestyZen. All rights reserved. | Built for BCA Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data/recipes.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Hero search redirect
+        function searchRecipes(e) {
+            e.preventDefault();
+            const query = document.getElementById('heroSearch').value.trim();
+            if (query) {
+                window.location.href = `recipes.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Load featured recipes (pick 6 from different categories)
+        const featured = [];
+        const categories = ['breakfast', 'lunch', 'dinner', 'snacks', 'smoothies', 'desserts'];
+        categories.forEach(cat => {
+            const recipe = recipesData.find(r => r.category === cat);
+            if (recipe) featured.push(recipe);
+        });
+
+        const grid = document.getElementById('featuredRecipes');
+        featured.forEach(recipe => {
+            grid.appendChild(createRecipeCard(recipe));
+        });
+    </script>
+
+</body>
+
+</html>
